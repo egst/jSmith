@@ -216,3 +216,19 @@ Based on the previous example:
 ```
 
 The `j-tmp` element is looped over the modified array of `{tag: '...', val: '...'}` `object`s. The children of `j-switch` then use the `tag` variable to decide whether they're the right tags for the current item and the `val` variable to set some kind of value based on the tag type. If `tag == 'img'`, the `j-img` element is chosen and it then sets its `src` attribute to `val`. Otherwise, the `j-any` element is chosen and it is then casted to a `<${tag} is="j-${tag}">` element, which then sets its `innerText` to `val`.
+
+## Promises
+
+Often the page data must be aquired from some kind of server-side API. These requests to the server take some time and are usually implemented in JS with the fetch API, that works with `Promise`s. **jSmith** accepts data for the contexts as `Promise`s. The loading of the `JElem` elements is divided into a few stages. The first one is synchronous and calles the next one as an asynchronous function. The following stages are performed asynchronously and may at some point wait for some data from the contexts to resolve. Any data may be provided as a `Promise`, it is then automatically recognized as a `Promise`, the loading process halts and waits for it to be resolved, then uses the resolved value.
+
+TODO: There is no need to wait with the `jLoad` event once the most imporant data (such the context itself and maybe conditions and loops) is resolved.
+
+For example, the `articles` from the example above may be aquired by some `async function fetchArticles`, that returns a promise:
+
+```JS
+const pageData = {
+  color: '#faee32',
+  title: 'jSmith test',
+  articles: fetchArticles()
+}
+```
