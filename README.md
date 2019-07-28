@@ -232,3 +232,7 @@ const pageData = {
   articles: fetchArticles()
 }
 ```
+
+## Current code structure
+
+The current code structure is temporary. It demonstrates an example HTML document `index.html` along with the basic data setup in `main.js` (and some additional tools in `tools.js` and `iaerhy.js`) that includes `jSmith/evaluator.js` and `jSmith/main.js`. The `jSmith/main.js` uses `with`, which is not deprecated, but prohibited in strict mode (enabled automatically in modular code). `with` is often not recomended in JS, but in this particular case, it does exactly the job that needs to be done. Implementing this manually would mean parsing the whole JS expressions inside the `data-` attributes, which would bring even more overhead, that the `with` does. So the `evaluator` must be defined globally in `evaluator.js` and the whole file must be included separately. The rest of the code is modular.
