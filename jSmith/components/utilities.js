@@ -26,7 +26,8 @@ export class Tmp extends JElem(HTMLElement) {
     logger.debug(1, 'custom load', this)
 
     while (this.firstChild != null) {
-      jWrap(this.firstChild).internalContext = jWrap(this).context
+      //jWrap(this.firstChild).internalContext = jWrap(this).context
+      jWrap(this.firstChild).internalContext = Object.assign(jWrap(this.firstChild).context, jWrap(this).context)
       const inserted = this.parentNode.insertBefore(this.firstChild, this)
       logger.debug(1, 'tmp context', jWrap(inserted).context)
     }

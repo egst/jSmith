@@ -182,7 +182,7 @@ export class JElemWrap {
       return
     }
 
-    if (this.customPreLoad != null && !this.customPreLoad.call(this.elem)) {
+    if (this.customPreLoad != null && !await this.customPreLoad.call(this.elem)) {
       logger.debug(1, 'load aborted at custom pre-load', this.elem)
       return
     }
