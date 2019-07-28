@@ -235,4 +235,21 @@ const pageData = {
 
 ## Current code structure
 
-The current code structure is temporary. It demonstrates an example HTML document `index.html` along with the basic data setup in `main.js` (and some additional tools in `tools.js` and `iaerhy.js`) that includes `jSmith/evaluator.js` and `jSmith/main.js`. The `jSmith/main.js` uses `with`, which is not deprecated, but prohibited in strict mode (enabled automatically in modular code). `with` is often not recomended in JS, but in this particular case, it does exactly the job that needs to be done. Implementing this manually would mean parsing the whole JS expressions inside the `data-` attributes, which would bring even more overhead, that the `with` does. So the `evaluator` must be defined globally in `evaluator.js` and the whole file must be included separately. The rest of the code is modular.
+The current code structure is temporary. It demonstrates an example HTML document `index.html` along with the basic data setup in `main.js` (and some additional tools in `tools.js` and `iaerhy.js`) that includes `jSmith/evaluator.js` and `jSmith/main.js`. The `jSmith/evaluator.js` uses `with`, which is not deprecated, but prohibited in strict mode (enabled automatically in modular code). `with` is often not recomended in JS, but in this particular case, it does exactly the job that needs to be done. Implementing this manually would mean parsing the whole JS expressions inside the `data-` attributes, which would bring even more overhead, that the `with` does. So the `evaluator` must be defined globally in `evaluator.js` and the whole file must be included separately. The rest of the code is modular.
+
+In `jSmith/`:
+
+`main.js` simply imports the `init/define.js` file, that imports all the needed custom elements constructors and defines them.
+
+`config.js` contains the configuration of the supported elements to be extended and the HTML prefix.
+
+`evaluator.js` is the only non-modular piece of code and provides the globally defined `evaluator`, that evaluates the given expression in the given contexts.
+
+`logger.js` provides the `logger` object for debugging purposes and logging in general.
+
+Other root files provide some misc. mainly functional tools with use of some proxies etc.
+
+`init/` contains scripts, that are to be executed once upon initializations. Currently, only the `define.js` is used, that imports and defines the custom elements.
+
+`components/` contains the the `JElem` mixin in `jelem.js` and all the custom element's constructors either in separate files (such as `page.js`) or in collections (such as `utilities.js` and `control.js`).
+
