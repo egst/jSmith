@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head is="j-head" data-context="pageData">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+        <meta is="j-meta" name="theme-color" data-attr-content="color">
+        
+        <title is="j-title" data-text="title"></title>
+
+        <!-- Polyfill for Edge: -->
+        <!--<script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>-->
+
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+        </style>
+
+        <script src="main.js" type="module"></script>
+        <script src="jSmith/evaluator.js"></script>
+        <script src="jSmith/main.js" type="module"></script>
+    </head>
+    <body is="j-body" data-context="pageData">
+        <h1 is="j-h1" data-text="title"></h1>
+        <j-page data-name="newsfeed" data-context="pages.newsfeed">
+            <section>
+                <article is="j-article" data-loop="articles">
+                    <h2 is="j-h2" data-text="title"></h2>
+                    <img is="j-img" data-attr-src="thumbnail"></img>
+                    <j-tmp data-loop="fn.labelList(content, 'tag', 'val')">
+                        <j-switch>
+                            <img
+                                is="j-img"
+                                data-case="tag == 'img'"
+                                data-attr-src="val">
+                            <j-any
+                                data-cast="tag"
+                                data-default-case
+                                data-text="val"></j-any>
+                        </j-switch>
+                    </j-tmp>
+                </article>
+            </section>
+        </j-page>
+        <j-page data-name="home" data-context="pages.home"></j-page>
+    </body>
+</html>
