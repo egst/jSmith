@@ -1,5 +1,3 @@
-import { symbols } from '../tools.js'
-
 import { config } from '../config.js'
 
 import { logger } from '../logger.js'
@@ -15,12 +13,14 @@ import {
   jWrap
 } from './jelem.js'
 
+import { jSymbols } from '../symbols.js'
+
 export class Tmp extends JElem(HTMLElement) {
   constructor () {
     super()
   }
 
-  async [Symbol.for('customLoad')] () {
+  async [jSymbols.customLoad] () {
     if (this.parentNode == null) return true
 
     logger.debug(1, 'custom load', this)
@@ -37,36 +37,36 @@ export class Tmp extends JElem(HTMLElement) {
 }
 
 export class Any extends JElem(HTMLElement) {
-  [Symbol.for('tagCast')] = null;
+  [jSymbols.tagCast] = null
 
   constructor () {
     super()
   }
 
-  async [Symbol.for('customPreLoad')] () {
+  async [jSymbols.customPreLoad] () {
     await this._setTagCast()
-    if (symbols(this).tagCast != null)
+    if (jSymbols(this).tagCast != null)
       this._cast()
     return true
   }
 
   async _setTagCast (tagCast = null) {
     if (this.parentElement == null) {
-      symbols(this).tagCast = null
+      jSymbols(this).tagCast = null
       return
     }
 
     if (tagCast != null)
-      symbols(this).tagCast = tagCast
+      jSymbols(this).tagCast = tagCast
     else if (dataset(this).cast != null) {
-      symbols(this).tagCast = await jWrap(this).evaluate(dataset(this).cast)
+      jSymbols(this).tagCast = await jWrap(this).evaluate(dataset(this).cast)
     }
   }
 
   _cast () {
-    if (symbols(this).tagCast == null) return
+    if (jSymbols(this).tagCast == null) return
 
-    const clone = document.createElement(symbols(this).tagCast, {is: `${config.prefix}-${symbols(this).tagCast}`})
+    const clone = document.createElement(jSymbols(this).tagCast, {is: `${config.prefix}-${jSymbols(this).tagCast}`})
     for (const [attr, val] of Object.entries(allAtributes(this)))
       attributes(clone)[attr] = val
     for (const child of this.childNodes)

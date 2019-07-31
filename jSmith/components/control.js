@@ -7,12 +7,14 @@ import {
   jWrap
 } from './jelem.js'
 
+import { jSymbols } from '../symbols.js'
+
 export class Switch extends JElem(HTMLElement) {
   constructor () {
     super()
   }
 
-  async [Symbol.for('customLoad')] () {
+  async [jSymbols.customLoad] () {
     if (this.parentNode == null) return true
 
     logger.debug(1, 'custom load', this)

@@ -2,8 +2,14 @@ import { config } from '../config.js'
 
 import {
   tagCtor,
-  events
 } from '../domtools.js'
+
+import {
+  events,
+  jEvents
+} from '../events.js'
+
+import { jSymbols } from '../symbols.js'
 
 import { JElem } from '../components/jelem.js'
 
@@ -43,6 +49,10 @@ customElements.define('j-switch', Switch)
 events(document).DOMContentLoaded = async () => {
   // Wait until all elements are upgraded upon the first page load:
   await Promise.all([...document.querySelectorAll(':not(:defined)')].map(e => customElements.whenDefined(e.localName)))
-  window.upgrade = true
-  window.dispatchEvent(new Event('upgrade'))
+  jSymbols(window).upgrade = true
+  window.dispatchEvent(jEvents.upgrade)
+  //window.addEventListener('upgrade', () => console.log('yee'))
+  //jEvents(window).upgrade = () => console.log('yee')
+  //window.dispatchEvent(new Event('upgrade'))
+  //console.log('upgrade')
 }

@@ -1,12 +1,3 @@
-// addEventListener proxy:
-export const events = elem =>
-  new Proxy({}, {
-    set (target, prop, val) {
-      elem.addEventListener(prop, val)
-      return true
-    }
-  })
-
 // DOM attributes proxy:
 export const prefixedAttributes = prefix => elem => {
   const prefixed = attr => prefix == null ? attr : `${prefix}-${attr}`

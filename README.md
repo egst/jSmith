@@ -12,9 +12,7 @@ class extends JElem(HTMLElement)      // is used for autonomous elements
 class extends JElem()                 // HTMLElement is the default superclass
 ```
 
-All necessary methods and properties are implemented as symbol properties*, so no conflicts should arise from extending more complicated elements. Most of the functions used on these elements are implemented as methods of `JElemWrap` which is a wrapper around any element, that provides special functionality to those that are `instanceof JElem` and some minor additions for other elements as well:
-
-_*) TODO: Some sort of custom symbol registry instead of using `Symbol.for`, which could still theoretically cause collisions._
+All necessary methods and properties are implemented as symbol properties (there is a custom symbol registry), so no conflicts should arise from extending more complicated elements. Most of the functions used on these elements are implemented as methods of `JElemWrap` which is a wrapper around any element, that provides special functionality to those that are `instanceof JElem` and some minor additions for other elements as well:
 
 ```JS
 new JElemWrap(elem) // constructing the wrap
